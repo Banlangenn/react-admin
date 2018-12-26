@@ -1,16 +1,17 @@
 
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-// import styles from './../AppRouter/appRouter.module.scss'
+import styles from './../AppRouter/appRouter.module.scss'
 import { Button, Slider } from 'antd';
 
 
 const Index = (props) => {
   const {history, ...rest} = props
-  console.log(new URLSearchParams(rest.location.search))
-  return <div>
-      <h2 onClick={()=> {history.push('/users')}}>Home </h2><Button>点我没用</Button>
-  </div>;
+  console.log(rest)
+  console.log('rest')
+  console.log('rest')
+  // console.log(new URLSearchParams(rest.location.search))
+  return <h2 onClick={()=> {history.push('/users')}}>Home</h2>;
 }
 const About = () => <h2>About</h2>;
 const Users = () => <h2>Users</h2>;
