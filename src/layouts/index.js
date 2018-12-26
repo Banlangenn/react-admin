@@ -1,8 +1,85 @@
 
 import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, SubMenu, Icon } from 'antd';
 import styles from './layout.module.scss'
 const { Header, Sider, Content } = Layout;
+
+{/* <Menu>
+  <Menu.Item>菜单项</Menu.Item>
+  <SubMenu title="子菜单">
+    <Menu.Item>子菜单项</Menu.Item>
+  </SubMenu>
+</Menu> */}
+
+const renderSubMenu =  ({ key, title, icon, link, sub, ...props }) => {
+   return  sub && sub.length>0 ? 
+   <SubMenu title={title} key={key || link}>
+       {renderMenu(sub)}
+   </SubMenu> 
+   :
+   <Menu.Item key="1">
+       <Icon type="user" />
+       <span>nav 1</span>
+   </Menu.Item>
+
+}
+
+const renderMenu =  (menus) => {
+    return menus.map(
+        item => renderSubMenu(item) 
+    )
+}
+// const renderMenu =  ({ menus, ...props }) => <Menu {...props}>
+//     {menus && menus.map(
+//         item => item.sub && item.sub.length ?
+//             renderSubMenu(item) : renderMenuItem(item)
+//     )}
+//     </Menu>;
+// const renderSubMenu =
+// ({ key, title, icon, link, sub, ...props }) =>
+//     <Menu.SubMenu
+//         key={key || link}
+//         title={
+//             <span>
+//                 {icon && <Icon type={icon} />}
+//                 <span className="nav-text">{title}</span>
+//             </span>
+//         }
+//         {...props}
+//     >
+//         {sub && sub.map(item => renderMenuItem(item))}
+//     </Menu.SubMenu>;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class CLayout extends Component {
   state = {
@@ -13,8 +90,9 @@ class CLayout extends Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
-  }
+  } 
 
+  
   render() {
     return (
       <div className={ styles.layoutCustomTrigger }>
