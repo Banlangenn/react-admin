@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Icon } from 'antd';
 import styles from './layout.module.scss'
 import Sider  from './Sider'
 const { Header, Content } = Layout;
@@ -14,8 +14,6 @@ class CLayout extends Component {
       collapsed: !this.state.collapsed,
     });
   } 
-
-  
   render() {
     return (
       <div className={ styles.layoutCustomTrigger }>

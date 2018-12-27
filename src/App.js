@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import styles from './../AppRouter/appRouter.module.scss'
 import { Button } from 'antd';
@@ -13,33 +13,43 @@ const Index = (props) => {
   </div>;
 }
 
+// 何时使用Component还是PureComponent？
 
 
 
 // 一级路由
-const AppRouter = () => (
-    <Router>
-      <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about/">About</Link>
-            </li>
-            <li>
-              <Link to="/users/">Users</Link>
-            </li>
-          </ul>
-        </nav> */}
+const AppRouter = (props) => {
+  const {dispatch} = props
+  console.log(props)
+  return (<Router>
+    <div>
+      {/* <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about/">About</Link>
+          </li>
+          <li>
+            <Link to="/users/">Users</Link>
+          </li>
+        </ul>
+      </nav> */}
   
-        <Route path="/" exact component={Layout} />
-        <Route path="/about/" component={About} />
-        <Route path="/users/" component={Index} />
-      </div>
-    </Router>
-  );
+      <Route path="/" exact component={Layout} />
+      <Route path="/about/" component={About} />
+      <Route path="/users/" component={Index} />
+    </div>
+  </Router>)
+}
+
+  // class AppRouter extends PureComponent {
+
+  //     render() {
+  //       return 
+  //     }
+  // }
 
 
 

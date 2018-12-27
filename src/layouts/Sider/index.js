@@ -1,5 +1,6 @@
 import { Menu, Icon, Layout } from 'antd';
 import React from 'react';
+import { connect } from 'react-redux'
 import styles from './sider.module.scss'
 {/* <Menu>
   <Menu.Item>菜单项</Menu.Item>
@@ -7,16 +8,143 @@ import styles from './sider.module.scss'
     <Menu.Item>子菜单项</Menu.Item>
   </SubMenu>
 </Menu> */}
-const arr = [
-    {"parentId":0,"key":"/","title":"首页"},
-    {"addTime":"2018-01-02 16:31:11","isDelete":0,"remark":"风控报告","updateTime":"2018-01-02 16:41:32","label":"风控报告","sort":1,"type":"10","parentId":0,"scriptid":"/app/animation","expanded":true,"children":[{"scriptid":"/app/animation/basicAnimations","addTime":"2017-04-01 11:42:51","isDelete":0,"name":"风控审批报告","remark":"风控审批报告","updateTime":"2018-01-02 16:43:48","label":"风控审批报告","sort":60,"type":"10","leaf":true,"value":"12387","parentId":12422,"key":"/app/animation/basicAnimations","title":"风控审批报告"}],"name":"风控报告","value":"12422","key":"/app/animation","title":"风控报告","sub":[{"scriptid":"/app/animation/basicAnimations","addTime":"2017-04-01 11:42:51","isDelete":0,"name":"风控审批报告","remark":"风控审批报告","updateTime":"2018-01-02 16:43:48","label":"风控审批报告","sort":60,"type":"10","leaf":true,"value":"12387","parentId":12422,"key":"/app/animation/basicAnimations","title":"风控审批报告"}]},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"客户管理","updateTime":"2018-01-02 16:33:53","label":"客户管理","sort":10,"type":"10","parentId":0,"url":"","scriptid":"/app/table","expanded":true,"children":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"客户管理","updateTime":"2018-01-05 14:34:22","label":"客户管理","sort":10,"type":"10","leaf":true,"parentId":11140,"url":"","scriptid":"/app/table/basicTable","name":"客户管理","value":"11161","key":"/app/table/basicTable","title":"客户管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"黑名单","updateTime":"2018-01-05 14:34:33","label":"黑名单","sort":11,"type":"10","leaf":true,"parentId":11140,"url":"","scriptid":"/app/table/advancedTable","name":"黑名单","value":"11162","key":"/app/table/advancedTable","title":"黑名单"},{"scriptid":"/app/table","addTime":"2017-10-18 16:24:12","isDelete":0,"name":"可信管理","remark":"可信管理","updateTime":"2017-10-23 16:29:20","label":"可信管理","sort":30,"type":"10","leaf":true,"value":"12416","parentId":11140,"key":"/app/table","title":"可信管理"}],"name":"客户管理","value":"11140","key":"/app/table","title":"客户管理","sub":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"客户管理","updateTime":"2018-01-05 14:34:22","label":"客户管理","sort":10,"type":"10","leaf":true,"parentId":11140,"url":"","scriptid":"/app/table/basicTable","name":"客户管理","value":"11161","key":"/app/table/basicTable","title":"客户管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"黑名单","updateTime":"2018-01-05 14:34:33","label":"黑名单","sort":11,"type":"10","leaf":true,"parentId":11140,"url":"","scriptid":"/app/table/advancedTable","name":"黑名单","value":"11162","key":"/app/table/advancedTable","title":"黑名单"},{"scriptid":"/app/table","addTime":"2017-10-18 16:24:12","isDelete":0,"name":"可信管理","remark":"可信管理","updateTime":"2017-10-23 16:29:20","label":"可信管理","sort":30,"type":"10","leaf":true,"value":"12416","parentId":11140,"key":"/app/table","title":"可信管理"}]},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"规则引擎","updateTime":"2018-01-12 10:00:01","label":"规则引擎","sort":20,"type":"10","parentId":0,"url":"","scriptid":"RuleEngineMenu","expanded":true,"children":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"规则配置","updateTime":"2018-01-05 14:28:57","label":"规则配置","sort":11,"type":"10","leaf":true,"parentId":11153,"url":"","scriptid":"ruleEngine","name":"规则配置","iconCls":"icon","value":"11141","key":"ruleEngine","title":"规则配置"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"表字段维护","updateTime":"2018-01-05 14:28:51","label":"表字段维护","sort":12,"type":"10","leaf":true,"parentId":11153,"url":"","scriptid":"FormFieldsToAdd","name":"表字段维护","value":"11151","key":"FormFieldsToAdd","title":"表字段维护"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"规则场景绑定","updateTime":"2018-01-05 14:25:40","label":"规则场景绑定","sort":30,"type":"10","leaf":true,"parentId":11153,"url":"","scriptid":"BorrowingRulesManagement","name":"规则场景绑定","value":"11146","key":"BorrowingRulesManagement","title":"规则场景绑定"},{"scriptid":"RiskCheck","addTime":"2017-06-20 17:03:28","isDelete":0,"name":"风控人工复审","remark":"风控人工复审","updateTime":"2018-01-05 14:28:15","label":"风控人工复审","sort":70,"type":"10","leaf":true,"value":"12404","parentId":11153,"key":"RiskCheck","title":"风控人工复审"}],"name":"规则引擎","value":"11153","key":"RuleEngineMenu","title":"规则引擎","sub":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"规则配置","updateTime":"2018-01-05 14:28:57","label":"规则配置","sort":11,"type":"10","leaf":true,"parentId":11153,"url":"","scriptid":"ruleEngine","name":"规则配置","iconCls":"icon","value":"11141","key":"ruleEngine","title":"规则配置"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"表字段维护","updateTime":"2018-01-05 14:28:51","label":"表字段维护","sort":12,"type":"10","leaf":true,"parentId":11153,"url":"","scriptid":"FormFieldsToAdd","name":"表字段维护","value":"11151","key":"FormFieldsToAdd","title":"表字段维护"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"规则场景绑定","updateTime":"2018-01-05 14:25:40","label":"规则场景绑定","sort":30,"type":"10","leaf":true,"parentId":11153,"url":"","scriptid":"BorrowingRulesManagement","name":"规则场景绑定","value":"11146","key":"BorrowingRulesManagement","title":"规则场景绑定"},{"scriptid":"RiskCheck","addTime":"2017-06-20 17:03:28","isDelete":0,"name":"风控人工复审","remark":"风控人工复审","updateTime":"2018-01-05 14:28:15","label":"风控人工复审","sort":70,"type":"10","leaf":true,"value":"12404","parentId":11153,"key":"RiskCheck","title":"风控人工复审"}]},{"addTime":"2017-09-20 11:12:38","isDelete":0,"remark":"事件中心","updateTime":"2018-01-05 14:50:15","label":"事件中心","sort":30,"type":"10","parentId":0,"scriptid":"Event","expanded":true,"children":[{"addTime":"2017-09-20 11:15:56","isDelete":0,"remark":"事件中心","updateTime":"2018-01-11 16:18:36","label":"事件中心","sort":1,"type":"10","leaf":true,"parentId":12410,"scriptid":"EventCenter","name":"事件中心","iconCls":"","value":"12411","key":"EventCenter","title":"事件中心"},{"scriptid":"UserLog","addTime":"2017-09-21 14:14:04","isDelete":0,"name":"用户日志","remark":"用户日志","label":"用户日志","sort":2,"type":"10","leaf":true,"value":"12412","parentId":12410,"key":"UserLog","title":"用户日志"},{"scriptid":"BusinessIndexManage","addTime":"2017-12-26 14:53:03","isDelete":0,"name":"业务指标管理","remark":"业务指标管理","updateTime":"2018-01-11 16:13:49","label":"业务指标管理","sort":1236,"type":"10","leaf":true,"value":"12421","parentId":12410,"key":"BusinessIndexManage","title":"业务指标管理"},{"scriptid":"BnsFieldMgt","addTime":"2018-01-05 15:21:29","isDelete":0,"name":"业务字段管理","remark":"业务字段管理","updateTime":"2018-01-05 15:22:56","label":"业务字段管理","sort":5475,"type":"10","leaf":true,"value":"12424","parentId":12410,"key":"BnsFieldMgt","title":"业务字段管理"}],"name":"事件中心","value":"12410","key":"Event","title":"事件中心","sub":[{"addTime":"2017-09-20 11:15:56","isDelete":0,"remark":"事件中心","updateTime":"2018-01-11 16:18:36","label":"事件中心","sort":1,"type":"10","leaf":true,"parentId":12410,"scriptid":"EventCenter","name":"事件中心","iconCls":"","value":"12411","key":"EventCenter","title":"事件中心"},{"scriptid":"UserLog","addTime":"2017-09-21 14:14:04","isDelete":0,"name":"用户日志","remark":"用户日志","label":"用户日志","sort":2,"type":"10","leaf":true,"value":"12412","parentId":12410,"key":"UserLog","title":"用户日志"},{"scriptid":"BusinessIndexManage","addTime":"2017-12-26 14:53:03","isDelete":0,"name":"业务指标管理","remark":"业务指标管理","updateTime":"2018-01-11 16:13:49","label":"业务指标管理","sort":1236,"type":"10","leaf":true,"value":"12421","parentId":12410,"key":"BusinessIndexManage","title":"业务指标管理"},{"scriptid":"BnsFieldMgt","addTime":"2018-01-05 15:21:29","isDelete":0,"name":"业务字段管理","remark":"业务字段管理","updateTime":"2018-01-05 15:22:56","label":"业务字段管理","sort":5475,"type":"10","leaf":true,"value":"12424","parentId":12410,"key":"BnsFieldMgt","title":"业务字段管理"}]},{"addTime":"2017-06-05 11:31:31","isDelete":0,"remark":"额度管理","updateTime":"2018-01-05 14:50:45","label":"额度管理","sort":40,"type":"10","parentId":0,"scriptid":"Limit","expanded":true,"children":[{"scriptid":"LimitManage","addTime":"2017-06-05 11:35:36","isDelete":0,"name":"额度管理","remark":"额度管理","updateTime":"2018-01-05 15:15:33","label":"额度管理","sort":81,"type":"10","leaf":true,"value":"12400","parentId":12399,"key":"LimitManage","title":"额度管理"},{"scriptid":"LimitCondition","addTime":"2017-06-05 15:40:31","isDelete":0,"name":"限额设置","remark":"限额设置","updateTime":"2017-06-05 15:40:58","label":"限额设置","sort":82,"type":"10","leaf":true,"value":"12401","parentId":12399,"key":"LimitCondition","title":"限额设置"},{"scriptid":"LimitModel","addTime":"2017-06-05 15:41:59","isDelete":0,"name":"额度模型","remark":"额度模型","updateTime":"2018-01-11 12:59:35","label":"额度模型","sort":83,"type":"10","leaf":true,"value":"12402","parentId":12399,"key":"LimitModel","title":"额度模型"},{"scriptid":"LimitVirtual","addTime":"2017-07-11 18:43:26","isDelete":0,"name":"虚拟商品额度","remark":"虚拟商品额度","updateTime":"2018-01-11 13:00:18","label":"虚拟商品额度","sort":84,"type":"10","leaf":true,"value":"12405","parentId":12399,"key":"LimitVirtual","title":"虚拟商品额度"},{"scriptid":"RangeConfig","addTime":"2017-07-19 14:25:10","isDelete":0,"name":"区间管理","remark":"区间管理","updateTime":"2018-01-11 13:01:17","label":"区间管理","sort":85,"type":"10","leaf":true,"value":"12408","parentId":12399,"key":"RangeConfig","title":"区间管理"},{"scriptid":"LimitChange","addTime":"2017-08-17 11:05:58","isDelete":0,"name":"额度修改","remark":"额度修改","updateTime":"2018-01-11 13:01:40","label":"额度修改","sort":86,"type":"10","leaf":true,"value":"12409","parentId":12399,"key":"LimitChange","title":"额度修改"},{"scriptid":"LimitSpecial","addTime":"2018-01-09 13:45:03","isDelete":0,"name":"专项商品额度","remark":"专项商品额度","label":"专项商品额度","sort":87,"type":"10","leaf":true,"value":"12425","parentId":12399,"key":"LimitSpecial","title":"专项商品额度"}],"name":"额度管理","value":"12399","key":"Limit","title":"额度管理","sub":[{"scriptid":"LimitManage","addTime":"2017-06-05 11:35:36","isDelete":0,"name":"额度管理","remark":"额度管理","updateTime":"2018-01-05 15:15:33","label":"额度管理","sort":81,"type":"10","leaf":true,"value":"12400","parentId":12399,"key":"LimitManage","title":"额度管理"},{"scriptid":"LimitCondition","addTime":"2017-06-05 15:40:31","isDelete":0,"name":"限额设置","remark":"限额设置","updateTime":"2017-06-05 15:40:58","label":"限额设置","sort":82,"type":"10","leaf":true,"value":"12401","parentId":12399,"key":"LimitCondition","title":"限额设置"},{"scriptid":"LimitModel","addTime":"2017-06-05 15:41:59","isDelete":0,"name":"额度模型","remark":"额度模型","updateTime":"2018-01-11 12:59:35","label":"额度模型","sort":83,"type":"10","leaf":true,"value":"12402","parentId":12399,"key":"LimitModel","title":"额度模型"},{"scriptid":"LimitVirtual","addTime":"2017-07-11 18:43:26","isDelete":0,"name":"虚拟商品额度","remark":"虚拟商品额度","updateTime":"2018-01-11 13:00:18","label":"虚拟商品额度","sort":84,"type":"10","leaf":true,"value":"12405","parentId":12399,"key":"LimitVirtual","title":"虚拟商品额度"},{"scriptid":"RangeConfig","addTime":"2017-07-19 14:25:10","isDelete":0,"name":"区间管理","remark":"区间管理","updateTime":"2018-01-11 13:01:17","label":"区间管理","sort":85,"type":"10","leaf":true,"value":"12408","parentId":12399,"key":"RangeConfig","title":"区间管理"},{"scriptid":"LimitChange","addTime":"2017-08-17 11:05:58","isDelete":0,"name":"额度修改","remark":"额度修改","updateTime":"2018-01-11 13:01:40","label":"额度修改","sort":86,"type":"10","leaf":true,"value":"12409","parentId":12399,"key":"LimitChange","title":"额度修改"},{"scriptid":"LimitSpecial","addTime":"2018-01-09 13:45:03","isDelete":0,"name":"专项商品额度","remark":"专项商品额度","label":"专项商品额度","sort":87,"type":"10","leaf":true,"value":"12425","parentId":12399,"key":"LimitSpecial","title":"专项商品额度"}]},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"第三方征信","updateTime":"2018-01-05 14:51:06","label":"第三方征信","sort":50,"type":"10","parentId":0,"url":"","scriptid":"TppCredit","expanded":true,"children":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"第三方征信","label":"第三方征信","sort":10,"type":"10","leaf":true,"parentId":11171,"url":"","scriptid":"ThirdPartyInquiry","name":"第三方征信","value":"11172","key":"ThirdPartyInquiry","title":"第三方征信"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"场景与接口关系维护","updateTime":"2017-07-12 17:24:09","label":"场景与接口关系维护","sort":11,"type":"10","leaf":true,"parentId":11171,"url":"","scriptid":"ScenePortManage","name":"场景与接口关系维护","value":"11174","key":"ScenePortManage","title":"场景与接口关系维护"},{"scriptid":"SceneTableManage","addTime":"2017-07-13 11:46:08","isDelete":0,"name":"场景与表维护","remark":"场景与表维护","label":"场景与表维护","sort":12,"type":"10","leaf":true,"value":"12407","parentId":11171,"key":"SceneTableManage","title":"场景与表维护"}],"name":"第三方征信","value":"11171","key":"TppCredit","title":"第三方征信","sub":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"第三方征信","label":"第三方征信","sort":10,"type":"10","leaf":true,"parentId":11171,"url":"","scriptid":"ThirdPartyInquiry","name":"第三方征信","value":"11172","key":"ThirdPartyInquiry","title":"第三方征信"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"场景与接口关系维护","updateTime":"2017-07-12 17:24:09","label":"场景与接口关系维护","sort":11,"type":"10","leaf":true,"parentId":11171,"url":"","scriptid":"ScenePortManage","name":"场景与接口关系维护","value":"11174","key":"ScenePortManage","title":"场景与接口关系维护"},{"scriptid":"SceneTableManage","addTime":"2017-07-13 11:46:08","isDelete":0,"name":"场景与表维护","remark":"场景与表维护","label":"场景与表维护","sort":12,"type":"10","leaf":true,"value":"12407","parentId":11171,"key":"SceneTableManage","title":"场景与表维护"}]},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"系统管理","updateTime":"2018-01-09 10:20:01","label":"系统管理","sort":999,"type":"10","parentId":0,"scriptid":"sysManage","expanded":true,"children":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"菜单管理","updateTime":"2017-12-19 13:22:35","label":"菜单管理","sort":5,"type":"10","leaf":true,"parentId":1,"scriptid":"sysMenuManage","name":"菜单管理","iconCls":"icon-caidanguanli","value":"2","key":"sysMenuManage","title":"菜单管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"用户管理","updateTime":"2016-08-02 09:36:27","label":"用户管理","sort":10,"type":"10","leaf":true,"parentId":1,"scriptid":"sysUserManage","name":"用户管理","iconCls":"icon-yonghuguanli","value":"3","key":"sysUserManage","title":"用户管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"角色管理","updateTime":"2016-08-02 09:36:53","label":"角色管理","sort":15,"type":"10","leaf":true,"parentId":1,"scriptid":"sysRoleManage","name":"角色管理","iconCls":"icon-jiaoseguanli","value":"4","key":"sysRoleManage","title":"角色管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"字典管理","updateTime":"2016-08-02 09:44:48","label":"字典管理","sort":30,"type":"10","leaf":true,"parentId":1,"scriptid":"sysDicManage","name":"字典管理","iconCls":"icon-zidianguanli","value":"7","key":"sysDicManage","title":"字典管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"系统参数设置","label":"系统参数设置","sort":100,"type":"10","leaf":true,"parentId":1,"url":"","scriptid":"SystemParameterSettings","name":"系统参数设置","value":"11050","key":"SystemParameterSettings","title":"系统参数设置"}],"name":"系统管理","iconCls":"icon-xitongguanli","value":"1","key":"sysManage","title":"系统管理","sub":[{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"菜单管理","updateTime":"2017-12-19 13:22:35","label":"菜单管理","sort":5,"type":"10","leaf":true,"parentId":1,"scriptid":"sysMenuManage","name":"菜单管理","iconCls":"icon-caidanguanli","value":"2","key":"sysMenuManage","title":"菜单管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"用户管理","updateTime":"2016-08-02 09:36:27","label":"用户管理","sort":10,"type":"10","leaf":true,"parentId":1,"scriptid":"sysUserManage","name":"用户管理","iconCls":"icon-yonghuguanli","value":"3","key":"sysUserManage","title":"用户管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"角色管理","updateTime":"2016-08-02 09:36:53","label":"角色管理","sort":15,"type":"10","leaf":true,"parentId":1,"scriptid":"sysRoleManage","name":"角色管理","iconCls":"icon-jiaoseguanli","value":"4","key":"sysRoleManage","title":"角色管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"remark":"字典管理","updateTime":"2016-08-02 09:44:48","label":"字典管理","sort":30,"type":"10","leaf":true,"parentId":1,"scriptid":"sysDicManage","name":"字典管理","iconCls":"icon-zidianguanli","value":"7","key":"sysDicManage","title":"字典管理"},{"addTime":"2016-05-31 00:00:00","addUser":"system","isDelete":0,"updateUser":"","remark":"系统参数设置","label":"系统参数设置","sort":100,"type":"10","leaf":true,"parentId":1,"url":"","scriptid":"SystemParameterSettings","name":"系统参数设置","value":"11050","key":"SystemParameterSettings","title":"系统参数设置"}]}]
 
- class CSider extends React.Component {
+// 这个不同于vue  -- 这个 要把路由写全
+//  为什么呢====
+//  因为他没有 路由配置文件---如果不写全--还要递归遍历生成路由--
+//  《主要耗时》：递归  =>  生成树   =>   解析树 =>   路径解析出来
+//  路径写全   拉下来就是路由 -------  只需要一棵树去生成sider就行了
+//  把树  铺平  =>  也挺烦的
+//  能不能把  《主要耗时》   先请求发出去 然后  =>  放在sider渲染的时候给个loading
+const routerObj2 = [
+    {
+      id: "2",
+      parentId: "0",
+      menuName: "开发备注",
+      component: "Index",
+      icon: "user",
+      path: "test"
+    },
+    {
+      id: "1",
+      parentId: "0",
+      menuName: "权限",
+      component: "Index",
+      icon: "user",
+      path: "permission"
+    },
+    {
+      id: "1024",
+      parentId: "1",
+      menuName: "角色权限",
+      component: "RolesMg",
+      icon: "user",
+      path: "RolesMg"
+    },
+    {
+      id: "3",
+      parentId: "0",
+      menuName: "测试",
+      component: "Index",
+      icon: "user",
+      path: "xxx"
+    },
+    {
+      id: "99",
+      parentId: "3",
+      menuName: "测试",
+      component: "About",
+      icon: "user",
+      path: "xxx"
+    },
+    {
+      id: "40",
+      parentId: "0",
+      menuName: "测试-1",
+      component: "Index",
+      icon: "user",
+      path: "helloWorld"
+    },
+    {
+      id: "10",
+      parentId: "1",
+      menuName: "一级1-1",
+      component: "About",
+      icon: "user",
+      path: "about"
+    },
+    {
+      id: "100",
+      parentId: "10",
+      menuName: "一级1-1-1测试字数边长",
+      component: "About",
+      icon: "user",
+      path: "about"
+    },
+  
+    {
+      id: "11",
+      parentId: "1",
+      menuName: "一级ListComplete ",
+      component: "ListComplete",
+      icon: "user",
+      path: "one"
+    },
+    {
+      id: "22",
+      parentId: "2",
+      menuName: "添加路由和组件",
+      component: "PermissionMg",
+      icon: "user",
+      path: "two"
+    },
+    {
+      id: "19  ",
+      parentId: "2",
+      menuName: "更新日志",
+      component: "UpdateLog",
+      icon: "user",
+      path: "three"
+    },
+    {
+      id: "1922 ",
+      parentId: "2",
+      menuName: "一些demo",
+      component: "ListComplete",
+      icon: "user",
+      path: "demo"
+    },
+    {
+      id: "23",
+      parentId: "1",
+      menuName: "一级1-3",
+      component: "About",
+      icon: "user",
+      path: "four"
+    },
+    {
+      id: "24",
+      parentId: "1",
+      menuName: "一级1-4",
+      component: "HelloWorld",
+      icon: "user",
+      path: "five"
+    }]
+
+
+
+// 想法   在登陆的 时候把这俩玩意存进去  store
+@connect(state => {
+  return {
+    menuData: state.userInfo.menuData
+  }
+})
+class CSider extends React.Component {
     constructor(props) {
         console.log(props)
         super(props)
     }
-    rootSubmenuKeys = arr.map(item=>item.key)
+    rootSubmenuKeys = this.props.menuData.map(item => item.path)
     state = {
         openKeys: ['Limit'],// 初始展开的 SubMenu 菜单项 key 数组
         selectedKey: '', // 初始展开的 SubMenu 选中的 key
@@ -34,6 +162,8 @@ const arr = [
     }
     menuClick = (props) => {
         // this.props.history.push(props.key); //会刷新 导致 目录记不住
+        // console.log(props)
+        // console.log('路由路劲为' + props.key)
         this.setState({
             selectedKey: props.key
         });
@@ -43,15 +173,21 @@ const arr = [
             item => this.renderSubMenu(item) 
         )
     }
-    renderSubMenu =  ({ key, title, icon, link, sub, ...props }) => {
-        return  sub && sub.length>0 ? 
-        <Menu.SubMenu title={<span><Icon type="appstore" /><span>{title}</span></span>} key={key || link}>
-            {this.renderMenu(sub)}
+    // id: "24",
+    // parentId: "1",
+    // menuName: "一级1-4",
+    // component: "HelloWorld",
+    // icon: "user",
+    // path: "five"
+    renderSubMenu =  ({ menuName, icon, path, children, ...props }) => {
+        return  children && children.length > 0 ? 
+        <Menu.SubMenu title={<span><Icon type="appstore" /><span>{menuName}</span></span>} key={path}>
+            {this.renderMenu(children)}
         </Menu.SubMenu> 
         :
-        <Menu.Item key={key || link}>
+        <Menu.Item key={path}>
             <Icon type="user" />
-            <span>{title}</span>
+            <span>{menuName}</span>
         </Menu.Item>
      }
     setMenuOpen = props => {
@@ -62,18 +198,22 @@ const arr = [
         });
     };
     componentDidMount() {
+        const {dispatch} = this.props
+        dispatch({
+          type:'LOGIN',
+          data: routerObj2
+        })
         this.setMenuOpen(this.props);
     }
     render() {
-        const {collapsed} = this.props
+        console.log('=初始化props变化了=我走了两边=====')
+        const {collapsed, menuData} = this.props
         return <Layout.Sider
             trigger={null}
             collapsible
             collapsed={collapsed}
           >
             <div className={styles.logo} >
-                <Icon type="user" />
-                <span>ftyguhjlk</span>
             </div>
             <Menu 
                 theme="dark" 
@@ -84,7 +224,7 @@ const arr = [
                 selectedKeys={[this.state.selectedKey]}
                 onClick={this.menuClick}
             >
-                {this.renderMenu(arr)}
+                {this.renderMenu(menuData)}
             </Menu>
           </Layout.Sider>
     }
