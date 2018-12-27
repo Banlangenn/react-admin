@@ -1,6 +1,6 @@
 
-import React, { PureComponent } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 // import styles from './../AppRouter/appRouter.module.scss'
 import { Button } from 'antd';
 import About from './pages/About'
@@ -19,8 +19,6 @@ const Index = (props) => {
 
 // 一级路由
 const AppRouter = (props) => {
-  const {dispatch} = props
-  console.log(props)
   return (<Router>
     <div>
       {/* <nav>
@@ -37,7 +35,7 @@ const AppRouter = (props) => {
         </ul>
       </nav> */}
   
-      <Route path="/" exact component={Layout} />
+      <Route path="/" component={Layout} />
       <Route path="/about/" component={About} />
       <Route path="/users/" component={Index} />
     </div>

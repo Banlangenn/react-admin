@@ -2,12 +2,12 @@ import { Menu, Icon, Layout } from 'antd';
 import React from 'react';
 import { connect } from 'react-redux'
 import styles from './sider.module.scss'
-{/* <Menu>
-  <Menu.Item>菜单项</Menu.Item>
-  <SubMenu title="子菜单">
-    <Menu.Item>子菜单项</Menu.Item>
-  </SubMenu>
-</Menu> */}
+//<Menu>
+//   <Menu.Item>菜单项</Menu.Item>
+//   <SubMenu title="子菜单">
+//     <Menu.Item>子菜单项</Menu.Item>
+//   </SubMenu>
+// </Menu> 
 
 // 这个不同于vue  -- 这个 要把路由写全
 //  为什么呢====
@@ -140,19 +140,14 @@ const routerObj2 = [
   }
 })
 class CSider extends React.Component {
-    constructor(props) {
-        console.log(props)
-        super(props)
-    }
-    rootSubmenuKeys = this.props.menuData.map(item => item.path)
     state = {
-        openKeys: ['Limit'],// 初始展开的 SubMenu 菜单项 key 数组
+        openKeys: [],// 初始展开的 SubMenu 菜单项 key 数组
         selectedKey: '', // 初始展开的 SubMenu 选中的 key
     }
     onOpenChange = (openKeys) => {
-        console.log(openKeys)
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-        if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        console.log(this.props.menuData)
+        if (this.props.menuData.map(item=>item.path).indexOf(latestOpenKey) === -1) {
           this.setState({ openKeys });
         } else {
           this.setState({
@@ -161,7 +156,7 @@ class CSider extends React.Component {
         }
     }
     menuClick = (props) => {
-        // this.props.history.push(props.key); //会刷新 导致 目录记不住
+        this.props.history.push(props.key); //会刷新 导致 目录记不住
         // console.log(props)
         // console.log('路由路劲为' + props.key)
         this.setState({
@@ -173,12 +168,6 @@ class CSider extends React.Component {
             item => this.renderSubMenu(item) 
         )
     }
-    // id: "24",
-    // parentId: "1",
-    // menuName: "一级1-4",
-    // component: "HelloWorld",
-    // icon: "user",
-    // path: "five"
     renderSubMenu =  ({ menuName, icon, path, children, ...props }) => {
         return  children && children.length > 0 ? 
         <Menu.SubMenu title={<span><Icon type="appstore" /><span>{menuName}</span></span>} key={path}>
@@ -192,8 +181,11 @@ class CSider extends React.Component {
      }
     setMenuOpen = props => {
         const { pathname } = props.location;
+        // console.log(openKey: pathname.substr(0, pathname.lastIndexOf('/')),
+        // selectedKey: pathname)
+        // 这个需要判断一些多级路由 TODO:
         this.setState({
-            openKey: pathname.substr(0, pathname.lastIndexOf('/')),
+            openKeys: [pathname.substr(0, pathname.lastIndexOf('/'))],
             selectedKey: pathname
         });
     };
@@ -206,7 +198,8 @@ class CSider extends React.Component {
         this.setMenuOpen(this.props);
     }
     render() {
-        console.log('=初始化props变化了=我走了两边=====')
+        // console.log('=初始化props变化了=我走了两边====menuDatamenuData=')
+        // console.log(this.props.menuData)
         const {collapsed, menuData} = this.props
         return <Layout.Sider
             trigger={null}
@@ -214,6 +207,7 @@ class CSider extends React.Component {
             collapsed={collapsed}
           >
             <div className={styles.logo} >
+            non
             </div>
             <Menu 
                 theme="dark" 
