@@ -1,4 +1,4 @@
-export const LOGIN = 'LOGIN';
+export const GET_TREE = 'GET_TREE';
 export const SIGN_OUT = 'SIGN_OUT';
 
 // 1.帮助维护命名一致性，因为所有的 action type 汇总在同一位置。

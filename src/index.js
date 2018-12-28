@@ -4,10 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import rootReducer from './reducers'
+// import { createStore } from 'redux'
+// import rootReducer from './reducers'
+// const store = createStore(rootReducer)
+import configureStore from './store/configureStore'
+import rootSaga from './sagas'
+const store = configureStore()
+store.runSaga(rootSaga)
 
-const store = createStore(rootReducer)
 ReactDOM.render(
     <Provider store={store}>
         <App />

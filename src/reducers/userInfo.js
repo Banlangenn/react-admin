@@ -26,7 +26,7 @@ import { createReducer , getAppTree}  from './../uils'
     //  抵制失败  用一半吧
     //  思考一下   用 sage 完全可以把  action 去掉呀
     export default createReducer(initState, {
-       [actionTypes.LOGIN]: login,
+       [actionTypes.GET_TREE]: login,
        [actionTypes.SIGN_OUT] : signOut
     });
 
