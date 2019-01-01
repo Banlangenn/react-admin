@@ -7,11 +7,12 @@ export function* getTree() {
     const data = yield take('LOGIN')
     //  上边可以异步请求=>
     // 这边可以来个异步 请求接口
-    // const state = yield select(state.userInfo) 
-
+    const userInfo = yield select( state => state.userInfo)
+    console.log(userInfo) // menuData: Array(0), routerData: Array(0)} 
+    // console.log()
     // 可以获取其中一部分
     // 上下数据依赖用 call 不依赖 用 fork
-    console.log(state)
+    // console.log(state)
     yield put({
         type: "GET_TREE",
         data: data.data

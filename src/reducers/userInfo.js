@@ -12,7 +12,8 @@ import { createReducer , getAppTree}  from './../uils'
 
     const initState = {
         menuData: [],
-        routerData: []
+        routerData: [],
+        breadcrumbNameMap: {}
     }
     function login(state, action) {
         return {...state, ...getAppTree(action.data, 0, '')}
