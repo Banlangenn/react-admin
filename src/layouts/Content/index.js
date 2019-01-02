@@ -1,25 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Route, Redirect, Switch, Link } from 'react-router-dom';
-import { connect } from 'react-redux'
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
 import BreadcrumbView from './breadcrumb'
 const { Content } = Layout;
 // import styles from './sider.module.scss'
 
 
-const HelloWorld = () =><div>
-    <h2>1. 怎么重定向子路由的第一个</h2>
-    <h2>2. 有些路径不是菜单，需要一个标识</h2>
+const HelloWorld =() =><div>
+<h2>1. 怎么重定向子路由的第一个</h2>
+<h2>2. 有些路径不是菜单，需要一个标识</h2>
 </div>
-const About = () => <h2>About  <Link to= "/test/two">/test/two</Link></h2>
+const About =() => <h2>About  <Link to= "/test/two">/test/two</Link></h2>
 const ListComplete = () => <h2>ListComplete</h2>
 const UpdateLog = () => <h2>UpdateLog</h2>
-const PermissionMg = () => <div>
-    <h3>PermissionMg 侧边栏整体 依赖props-路由数据变化  <Link to= "/permission/about/about"> /permission/about/about</Link></h3>
-    <h2>1. 怎么重定向子路由的第一个</h2>
-    <h2>2. 有些路径不是菜单，需要一个标识不去渲染菜单</h2></div>
+const PermissionMg = lazy(() => import("./../../pages/PermissionMg")) 
+// lazy(() => import('./OtherComponent'));
 const Index = () => <h2>Index</h2>
 const RolesMg = () => <h2>RolesMg  <Link to= "/test/two">/test/two</Link></h2>
+
+// const Bar = lazy(() => import('./Bar'));
 const json={
     HelloWorld,
     About,
@@ -29,12 +28,13 @@ const json={
     Index,
     RolesMg
 }
-
-
 // 上半部分可以拆出去 
  class CContent extends Component {
     render() {
         const { routerData } = this.props
+        console.log(typeof PermissionMg)
+        console.log( typeof json['RolesMg'])
+        // <Route path="/bar" component={Bar} />
        return  routerData.length === 0
         ? 
         null 
@@ -42,17 +42,26 @@ const json={
         <Content style={{
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
             }}
-            >
+        >
+           
+            面包屑组件 依赖props渲染
             <BreadcrumbView {...this.props} />
-            <Switch>
-            <Route key='ffff' exact path="/ww" component= {json['PermissiRolesMgonMg']}/>
-                {
-                    routerData.map((item)=>{
-                        return  <Route key={item.path} exact path={item.path} component= {json[item.component]}/>
-                    })
-                }
-                <Route render={() => <Redirect to="/404" />} />
-            </Switch>
+            <Suspense fallback={<div style={{ paddingTop: 100, textAlign: 'center' }}><Spin size="large" /></div>}>
+            {/* <PermissionMg/> */}
+                <Switch>
+                    {/* 主页 */}
+                    <Route path='/' key='ffff' exact render={() => <Redirect to='/test/two' />} />
+                    {
+                        routerData.map((item)=>{
+                            // 解决子路由重定向问题
+                            return  item.hasOwnProperty('redirect') ?
+                            <Route path={item.path}  key={item.path} exact render={() => <Redirect to={item.redirect} />} />
+                            :<Route key={item.path} exact path={item.path}  component={json[item.component]}/> 
+                        })
+                    }
+                    {/* <Route render={() => <Redirect to="/404" />} /> */}
+                </Switch>
+            </Suspense>
         </Content>
    }
 }

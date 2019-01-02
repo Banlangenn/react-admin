@@ -10,7 +10,7 @@ export default class BreadcrumbView extends PureComponent {
         const BreadcrumbArray =  urlToList(pathname)
         return  BreadcrumbArray.map((item, index)=>{
             const { menuName } = breadcrumbNameMap[item]
-            // 是不是 link
+            // 是不是 link== 最后一个不能点
             const isLinkable = index !== BreadcrumbArray.length - 1
             return <Breadcrumb.Item key={item}>
                 {isLinkable ? <Link to={item}>{ menuName }</Link> : menuName }

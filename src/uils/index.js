@@ -1,8 +1,8 @@
 /*
  * @Author: banlangen 
  * @Date: 2018-12-27 15:54:15 
- * @Last Modified by: xiaoliu
- * @Last Modified time: 2019-01-01 21:43:19
+ * @Last Modified by: banlangen
+ * @Last Modified time: 2019-01-02 10:58:58
  */
 /**
  *
@@ -53,6 +53,9 @@ export function getAppTree(data, id, path) {
                 // genTree 执行完成后-- ele.children 会被改变
                 // 副作用 太强列了
                 if (ele.children.length === 0) {
+                    routerData.push(ele)
+                } else {
+                    ele.redirect = ele.children[0].path
                     routerData.push(ele)
                 }
             }
