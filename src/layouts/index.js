@@ -17,6 +17,16 @@ const routerObj2 = [
       path: "test"
   },
   {
+      //  一级菜单
+    id: "201",
+    parentId: "0",
+    menuName: "Exception403",
+    component: "Exception403",
+    icon: "user",
+    path: "403",
+    hideMenu: 1
+  },
+  {
       id: "1",
       parentId: "0",
       menuName: "权限",
@@ -160,16 +170,16 @@ class CLayout extends Component {
                         changeCollapsed={this.toggle}
                         />
                     <Layout>
-                    <Header style={{ background: '#fff', padding: 0 }}>
-                        <Icon
-                            className={styles.trigger}
-                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.toggle}
-                        />
-                    </Header>
-                    <Content {...this.props}/>
+                        <Header style={{ background: '#fff', padding: 0 }}>
+                            <Icon
+                                className={styles.trigger}
+                                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+                                onClick={this.toggle}
+                            />
+                        </Header>
+                        <Content {...this.props}/>
+                    </Layout>
                 </Layout>
-            </Layout>
             </div>   
         );
     }
