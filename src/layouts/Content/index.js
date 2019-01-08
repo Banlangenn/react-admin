@@ -19,7 +19,6 @@ const PermissionMg = lazy(() => import("./../../pages/PermissionMg"))
 const Index = () => <h2>Index</h2>
 const RolesMg = () => <h2>RolesMg  <Link to= "/test/two">/test/two</Link></h2>
 const Exception403 = ()=> <h2> Exception403 </h2>
-// const Bar = lazy(() => import('./Bar'));
 const json={
     HelloWorld,
     About,
@@ -27,37 +26,46 @@ const json={
     UpdateLog,
     PermissionMg,
     Index,
-    RolesMg
+    RolesMg,
+    Exception403
 }
 
-// function Authorized ({pathname, breadcrumbNameMap,children}) {
-//     console.log('breadcrumbNameMap[pathname]breadcrumbNameMap[pathname]')
-//     if(breadcrumbNameMap[pathname]) {
-//         return '有路由'
-//     }
-//     // alert('无理由')
-//      <Redirect  to={{ pathname:"/" }} />
-// }
 
+
+    function PrivateRoute({ component: Component, isAuthenticated, location, ...rest}) {
+        return (
+            <Route
+                {...rest}
+                render={_ =>
+                    isAuthenticated ? (
+                        <Component  />
+                    ) : (
+                        <Redirect
+                            to={{
+                                pathname: "/login",
+                                state: { from: location }
+                            }}
+                        />
+                    )
+                }
+            />
+        );
+    }
 
 
 // 上半部分可以拆出去 
  class CContent extends Component {
-    getPageTitle = (pathname, breadcrumbNameMap) => {
-        // const currRouterData = this.matchParamsPath(pathname, breadcrumbNameMap);
-    
-        // if (!currRouterData) {
-        //   return 'Ant Design Pro';
-        // }
-        // const pageName = formatMessage({
-        //   id: currRouterData.locale || currRouterData.name,
-        //   defaultMessage: currRouterData.name,
-        // });
-        // alert(breadcrumbNameMap[pathname])
-        if(!breadcrumbNameMap[pathname]) {
+    getPageTitle = (pathname, breadcrumbNameMap, isAuthenticated) => {
+        if (!isAuthenticated && pathname !== '/login') {
+            this.props.history.push('/login')
+            return 'React Admin'
+        }
+
+        // if 
+        if(!breadcrumbNameMap[pathname] && pathname !== '/login') {
             this.props.history.push('/403')
         }
-        const {menuName} = breadcrumbNameMap[pathname] || { menuName: '403'}
+        const {menuName} = breadcrumbNameMap[pathname] || { }
         if(!menuName) {
             return 'React Admin'
         }
@@ -68,20 +76,21 @@ const json={
         const { 
             routerData,
             location: { pathname },
-            breadcrumbNameMap
+            breadcrumbNameMap,
+            isAuthenticated
         } = this.props
-        console.log(typeof PermissionMg)
-        console.log( typeof json['RolesMg'])
+
+        // isAuthenticated,
+        // location
+        // console.log(typeof PermissionMg)
+        // console.log( typeof json['RolesMg'])
         // <Route path="/bar" component={Bar} />
 
         // 报错原因 lazy  返回的是不是func 是个object
 
+        // 会有loading
 
-       return  routerData.length === 0
-        ? 
-        null 
-        :
-        <Content style={{
+       return <Content style={{
             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
             }}
         >
@@ -91,7 +100,7 @@ const json={
                 面包屑组件 依赖props渲染
                 <BreadcrumbView {...this.props} />
                 <Suspense fallback={<div style={{ paddingTop: 100, textAlign: 'center' }}><Spin size="large" /></div>}>
-                    <DocumentTitle title={this.getPageTitle(pathname, breadcrumbNameMap)}>
+                    <DocumentTitle title={this.getPageTitle(pathname, breadcrumbNameMap, isAuthenticated)}>
                         <Switch>
                             {/* 主页 */}
                             <Route path='/' key='ffff' exact render={() => <Redirect to='/test/two' />} />
@@ -100,10 +109,11 @@ const json={
                                     // 解决子路由重定向问题
                                     return  item.hasOwnProperty('redirect') ?
                                     <Route path={item.path}  key={item.path} exact render={() => <Redirect to={item.redirect} />} />
-                                    :<Route key={item.path} exact path={item.path}  component={json[item.component]}/> 
+                                    : 
+                                    <PrivateRoute key={item.path}   path={item.path} component={json[item.component]} isAuthenticated = {isAuthenticated}/>
                                 })
                             }
-                            <Route render={() => <Redirect to="/404" />} />
+                            {/* <Route render={() => <Redirect to="/404" />} /> */}
                         </Switch>
                     </DocumentTitle>    
                 </Suspense>

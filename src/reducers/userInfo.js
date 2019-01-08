@@ -13,10 +13,11 @@ import { createReducer , getAppTree}  from './../uils'
     const initState = {
         menuData: [],
         routerData: [],
-        breadcrumbNameMap: {}
+        breadcrumbNameMap: {},
+        isAuthenticated: false
     }
     function login(state, action) {
-        return {...state, ...getAppTree(action.data, 0, '')}
+        return {...state, ...getAppTree(action.data, 0, ''), isAuthenticated: true}
     }
     function signOut (state, action) {
         // 这里边也是可以走逻辑的 为什么不把 渲染树 放在这个里边=== 一般的想法都是把数据拼好扔进来

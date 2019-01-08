@@ -25,6 +25,17 @@ class CSider extends React.PureComponent {
         openKeys:[],
         pathname: ''
     }
+    //  演示用
+    componentDidMount() {
+        fetch('/api/headOffice-manager/mechanism/findAll').then(response => response.json()).then(res => {
+            console.log('===================')
+            console.log(res.data)
+        }).catch(err => {
+            console.log('===================')
+            console.log(err)
+        })
+    }
+    //  演示用
     isMainMenu = (openKey) => {
       // 判断是不是一级菜单
         const { menuData } = this.props

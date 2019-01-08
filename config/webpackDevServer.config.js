@@ -83,11 +83,29 @@ module.exports = function(proxy, allowedHost) {
     public: allowedHost,
     proxy,
     before(app, server) {
-      if (fs.existsSync(paths.proxySetup)) {
-        // This registers user provided middleware for proxy reasons
-        require(paths.proxySetup)(app);
-      }
+      // if (fs.existsSync(paths.proxySetup)) {
+      //   // This registers user provided middleware for proxy reasons
+      //   require(paths.proxySetup)(app);
+      // }
 
+
+      // 实例
+    // const apiProxy = proxy('/api', {target: 'http://www.example.org'});
+//                   \____/   \_____________________________/
+//                     |                    |
+//                需要转发的请求           目标服务器
+
+    // proxy 中间件的选择项
+    const options = {
+      target: 'http://114.55.43.36:9481', // 目标服务器 host
+      changeOrigin: true,               // 默认false，是否需要改变原始主机头为目标URL
+      pathRewrite: {
+        '^/api': ''
+      }
+    }
+    app.use('/api',require('http-proxy-middleware')(options));
+
+      //  我不想污染src 文件夹===代理在此修改一样的
       // This lets us fetch source contents from webpack for the error overlay
       app.use(evalSourceMapMiddleware(server));
       // This lets us open files from the runtime error overlay.
