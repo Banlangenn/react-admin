@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Layout, Icon } from 'antd';
 import { connect } from 'react-redux'
 import Sider  from './Sider'
@@ -27,6 +28,9 @@ class CLayout extends Component {
         });
     }
     render() {
+        const { isAuthenticated, location } = this.props
+        if (!isAuthenticated) return <Redirect to={{  pathname: "/login", state: { from: location } }}/>
+        
         return (
             <div className={ styles.layoutCustomTrigger }>
                 <Layout  style={{ minHeight: '100vh' }}>

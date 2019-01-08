@@ -6,19 +6,23 @@ import BreadcrumbView from './breadcrumb'
 const { Content } = Layout;
 // import styles from './sider.module.scss'
 
-
+const Index = () => <p>IndexIndexIndexIndexIndexIndexIndex</p>
 const HelloWorld =() =><div>
 <h2>1. 怎么重定向子路由的第一个</h2>
 <h2>2. 有些路径不是菜单，需要一个标识</h2>
 </div>
-const About =() => <h2>About  <Link to= "/test/two">/test/two</Link></h2>
+const About =() => <h2>About  <Link to= "/test/two/">/test/two</Link></h2>
 const ListComplete = () => <h2>ListComplete</h2>
-const UpdateLog = () => <h2>UpdateLog</h2>
+const UpdateLog = () => <h2>UpdateLog
+    <Link to= "/test/three/one">/test/two/one</Link>
+    <Link to= "/test/three/one2">/test/two/one2</Link>
+    <Route path="/test/three/one"  component = { Index } />
+    <Route path="/test/three/one2"  component = { Exception403 } />
+</h2>
 const PermissionMg = lazy(() => import("./../../pages/PermissionMg")) 
 // lazy(() => import('./OtherComponent'));
-const Index = () => <h2>Index</h2>
 const RolesMg = () => <h2>RolesMg  <Link to= "/test/two">/test/two</Link></h2>
-const Exception403 = ()=> <h2> Exception403 </h2>
+const Exception403 = ()=> <div> Exception403<RolesMg/> </div>
 const json={
     HelloWorld,
     About,
@@ -32,46 +36,26 @@ const json={
 
 
 
-    function PrivateRoute({ component: Component, isAuthenticated, location, ...rest}) {
+    function PrivateRoute({ component: Component,  ...rest}) {
         return (
             <Route
                 {...rest}
-                render={_ =>
-                    isAuthenticated ? (
-                        <Component  />
-                    ) : (
-                        <Redirect
-                            to={{
-                                pathname: "/login",
-                                state: { from: location }
-                            }}
-                        />
-                    )
+                render={_ => <Component />
                 }
             />
-        );
+        )
     }
 
 
 // 上半部分可以拆出去 
  class CContent extends Component {
     getPageTitle = (pathname, breadcrumbNameMap, isAuthenticated) => {
-        if (!isAuthenticated && pathname !== '/login') {
-            this.props.history.push('/login')
-            return 'React Admin'
-        }
-
-        // if 
-        if(!breadcrumbNameMap[pathname] && pathname !== '/login') {
-            this.props.history.push('/403')
-        }
         const {menuName} = breadcrumbNameMap[pathname] || { }
         if(!menuName) {
             return 'React Admin'
         }
         return `${menuName} - React Admin`;
     }
-
     render() {
         const { 
             routerData,
@@ -102,15 +86,9 @@ const json={
                 <Suspense fallback={<div style={{ paddingTop: 100, textAlign: 'center' }}><Spin size="large" /></div>}>
                     <DocumentTitle title={this.getPageTitle(pathname, breadcrumbNameMap, isAuthenticated)}>
                         <Switch>
-                            {/* 主页 */}
-                            <Route path='/' key='ffff' exact render={() => <Redirect to='/test/two' />} />
                             {
                                 routerData.map((item)=>{
-                                    // 解决子路由重定向问题
-                                    return  item.hasOwnProperty('redirect') ?
-                                    <Route path={item.path}  key={item.path} exact render={() => <Redirect to={item.redirect} />} />
-                                    : 
-                                    <PrivateRoute key={item.path}   path={item.path} component={json[item.component]} isAuthenticated = {isAuthenticated}/>
+                                  return  <PrivateRoute key={item.path}   path={item.path} component={json[item.component]} isAuthenticated = {isAuthenticated}/>
                                 })
                             }
                             {/* <Route render={() => <Redirect to="/404" />} /> */}

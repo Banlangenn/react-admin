@@ -83,13 +83,17 @@ class CSider extends React.PureComponent {
             }
         }
         return null;
-      }
+    }
+
+      
     render() {
         const {collapsed, menuData, location: { pathname }} = this.props
         const {openKeys} = this.state
         const defaultProps = collapsed ? {} : { openKeys }
-        const selectedKeys = [pathname]
-        return <Layout.Sider
+        // 不能直接 选中一个  因为 路由路由没有在  菜单上 就没法选中了
+        // console.log(openKeys)
+        let selectedKeys = urlToList(pathname)
+        return ( <Layout.Sider
             trigger={null}
             collapsible
             collapsed={collapsed}
@@ -106,7 +110,7 @@ class CSider extends React.PureComponent {
             >
                 {this.renderMenu(menuData)}
             </Menu>
-          </Layout.Sider>
+          </Layout.Sider>)
     }
  }
  export default CSider
